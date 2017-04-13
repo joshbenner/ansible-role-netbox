@@ -15,5 +15,8 @@ netbox_packages:
   - graphviz
   - libpq-dev
   - libssl-dev
+netbox_ldap_packages:
+  - libldap2-dev
+  - libsasl2-dev
 netbox_web_user: www-data
 netbox_web_group: www-data

@@ -39,3 +39,7 @@
     command: collectstatic
     app_path: "{{ netbox_install_dir }}/netbox"
     virtualenv: "{{ netbox_venv_dir }}"
+
+- name: Configure LDAP
+  include: ldap.yml
+  when: netbox_ldap_enabled
