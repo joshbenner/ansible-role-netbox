@@ -1,2 +1,21 @@
 ---
-# tasks file for netbox
+- name: Load distro-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ netbox_packages }}"
+
+- name: Install netbox
+  include: netbox.yml
+
+- name: Configure gunicorn
+  include: gunicorn.yml
+
+- name: Configure nginx
+  include: nginx.yml

@@ -1,0 +1,41 @@
+---
+- name: Create netbox directory
+  file:
+    path: "{{ netbox_install_dir }}"
+    state: directory
+
+- name: Clone netbox
+  git:
+    repo: "{{ netbox_repo }}"
+    dest: "{{ netbox_install_dir }}"
+    version: "{{ netbox_version }}"
+
+- name: Install netbox python dependencies
+  pip:
+    requirements: "{{ netbox_install_dir }}/requirements.txt"
+    virtualenv: "{{ netbox_venv_dir }}"
+    virtualenv_python: python3
+
+- name: Get secret key
+  include: secret.yml
+  when: netbox_secret_key is not defined
+
+- name: Configure netbox
+  template:
+    src: templates/configuration.py.j2
+    dest: "{{ netbox_app_dir }}/configuration.py"
+    owner: root
+    group: "{{ netbox_web_group }}"
+    mode: 0640
+
+- name: Run DB migrations
+  django_manage:
+    command: migrate
+    app_path: "{{ netbox_install_dir }}/netbox"
+    virtualenv: "{{ netbox_venv_dir }}"
+
+- name: Collect static files
+  django_manage:
+    command: collectstatic
+    app_path: "{{ netbox_install_dir }}/netbox"
+    virtualenv: "{{ netbox_venv_dir }}"

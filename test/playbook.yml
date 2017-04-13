@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - role: geerlingguy.postgresql
+      postgresql_users:
+        - name: netbox
+          password: changeme
+      postgresql_databases:
+        - name: netbox
+    - role: "{{ playbook_dir | dirname }}"
+      netbox_http_port: 80

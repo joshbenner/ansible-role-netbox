@@ -1,0 +1,23 @@
+---
+- name: Install gunicorn
+  pip:
+    name: gunicorn
+    virtualenv: "{{ netbox_venv_dir }}"
+
+- name: Write gunicorn config
+  template:
+    src: templates/gunicorn_config.py.j2
+    dest: "{{ netbox_install_dir }}/gunicorn_config.py"
+  notify: restart supervisor
+
+- name: Write superisord config
+  template:
+    src: templates/netbox-supervisor.conf.j2
+    dest: /etc/supervisor/conf.d/netbox.conf
+  notify: restart supervisor
+
+- name: Enable supervisord
+  service:
+    name: supervisor
+    state: started
+    enabled: yes

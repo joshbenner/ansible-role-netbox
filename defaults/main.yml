@@ -1,2 +1,33 @@
 ---
-# defaults file for netbox
+netbox_repo: https://github.com/digitalocean/netbox.git
+netbox_version: v1.9.5
+
+netbox_allowed_hosts:
+  - netbox
+  - netbox.localdomain
+
+# No defaults -- HTTP or HTTPS must be specified.
+# netbox_http_port: 80
+
+# netbox_secret_key -- no default (auto-generated if undefined)
+
+netbox_db_host: localhost
+netbox_db_port: 5432
+netbox_db_name: netbox
+netbox_db_user: netbox
+netbox_db_pass: changeme
+
+netbox_login_required: false
+netbox_base_path:
+netbox_paginate_count: 50
+netbox_timezone: UTC
+netbox_prefer_ipv4: false
+
+netbox_date_format: "N j, Y"
+netbox_short_date_format: "Y-m-d"
+netbox_time_format: "g:i a"
+netbox_short_time_format: "H:i:s"
+netbox_datetime_format: "N j, Y g:i a"
+netbox_short_datetime_format: "Y-m-d H:i"
+
+netbox_gunicorn_port: 8001

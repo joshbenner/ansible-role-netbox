@@ -1,0 +1,4 @@
+[program:netbox]
+command = {{ netbox_venv_dir }}/bin/gunicorn -c {{ netbox_install_dir }}/gunicorn_config.py netbox.wsgi
+directory = {{ netbox_install_dir }}/netbox
+user = {{ netbox_web_user }}

@@ -1,0 +1,19 @@
+---
+netbox_install_dir: /opt/netbox
+netbox_venv_dir: /opt/netbox.venv
+netbox_packages:
+  - nginx
+  - supervisor
+  - git
+  - python3
+  - virtualenv
+  - python3-dev
+  - python3-pip
+  - libxml2-dev
+  - libxslt1-dev
+  - libffi-dev
+  - graphviz
+  - libpq-dev
+  - libssl-dev
+netbox_web_user: www-data
+netbox_web_group: www-data
