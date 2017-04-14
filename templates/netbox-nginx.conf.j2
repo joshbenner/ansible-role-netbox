@@ -1,6 +1,12 @@
 server {
-    {% if netbox_http_port is defined %}
+    {% if netbox_http_port is defined -%}
     listen {{ netbox_http_port }};
+    {% endif %}
+
+    {% if netbox_https_port is defined -%}
+    listen {{ netbox_https_port }} ssl;
+    ssl_certificate {{ netbox_ssl_cert }};
+    ssl_certificate_key {{ netbox_ssl_key }};
     {% endif %}
 
     server_name {{ netbox_allowed_hosts | join(' ') }};

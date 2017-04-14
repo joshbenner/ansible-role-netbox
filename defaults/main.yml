@@ -8,6 +8,10 @@ netbox_allowed_hosts:
 
 # No defaults -- HTTP or HTTPS must be specified.
 # netbox_http_port: 80
+# netbox_https_port: 443
+
+netbox_ssl_cert: /etc/pki/netbox.crt
+netbox_ssl_key: /etc/pki/netbox.key
 
 # netbox_secret_key -- no default (auto-generated if undefined)
 

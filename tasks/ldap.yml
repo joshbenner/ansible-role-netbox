@@ -19,3 +19,4 @@
     owner: "{{ netbox_web_user }}"
     group: "{{ netbox_web_group }}"
     mode: 0600
+  notify: restart supervisor

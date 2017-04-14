@@ -17,6 +17,17 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
 
+- name: Make SSL cert and key readable by nginx
+  file:
+    path: "{{ item }}"
+    state: file
+    group: "{{ netbox_web_group }}"
+    mode: g+r
+  with_items:
+    - "{{ netbox_ssl_cert }}"
+    - "{{ netbox_ssl_key }}"
+  when: netbox_https_port is defined
+
 - name: Enable nginx
   service:
     name: nginx
