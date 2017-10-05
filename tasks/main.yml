@@ -5,11 +5,14 @@
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
 
-- name: Install dependencies
-  package:
+- name: Install dependencies (APT)
+  apt:
     name: "{{ item }}"
     state: present
+    update_cache: "{{ netbox_update_apt_cache }}"
+    cache_valid_time: "{{ netbox_apt_cache_valid_time }}"
   with_items: "{{ netbox_packages }}"
+  when: ansible_os_family == 'Debian'
 
 - name: Install netbox
   include: netbox.yml

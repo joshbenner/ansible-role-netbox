@@ -1,9 +1,10 @@
 ---
-- name: Install LDAP package dependencies
-  package:
+- name: Install LDAP package dependencies (APT)
+  apt:
     name: "{{ item }}"
     state: present
   with_items: "{{ netbox_ldap_packages }}"
+  when: ansible_os_family == 'Debian'
 
 - name: Install LDAP pip dependencies
   pip:
